@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  InstanceProfileName:
+    Type: String
+    Description: The name of the instance profile that the EC2 runs under
+  KeyPair:
+    Type: String
+    Description: The key pair name for which allows ssh access to the EC2
+  S3Bucket:
+    Type: String
+    Description: The name of the S3 bucket where the code is stored
+Resources:
+  CrossAccountEC2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      IamInstanceProfile:
+        Ref: InstanceProfileName
+      ImageId: ami-32d8124a
+      KeyName:
+        Ref: KeyPair
+      AvailabilityZone: us-west-2a
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: CrossAccountBlogEC2
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash -ex
+          sudo yum update -y aws-cfn-bootstrap 
+          exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+          sudo aws s3 sync s3://${S3Bucket}/ /home/ec2-user/ 
+          sudo pip install boto3
+          sudo pip install psycopg2 
+          cd /home/ec2-user/
+          python driver.py

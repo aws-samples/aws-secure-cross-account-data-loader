@@ -1,0 +1,18 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupIngress",
+                "s3:PutBucketPolicy",
+                "s3:DeleteBucketPolicy"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

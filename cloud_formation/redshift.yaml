@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This template creates a Redshift cluster given with the supplied username and password.
+Parameters:
+  username:
+    Type: String
+    Description: The master username for the Redshift cluster.
+  password:
+    Type: String
+    Description: The master password for the Redshift cluster.
+    MinLength: 8
+Resources:
+  DataWarehouse:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterType: single-node
+      DBName: openfda
+      MasterUsername: 
+        Ref: username
+      MasterUserPassword: 
+        Ref: password
+      NodeType: dc1.large
+Outputs:
+    RedshiftEndpoint:
+        Description: The endpoint address of the Redshift cluster
+        Value: 
+            Fn::GetAtt:
+              - DataWarehouse
+              - Endpoint.Address

@@ -1,0 +1,16 @@
+{
+    "source_sg_role_arn": "<Your Source Cross Account Role Arn>",
+    "source_redshift_role_arn": "<Your Source Redshift Role Arn>",
+    "source_security_group_id": "<The Security Group of Your Source Redshift Cluster>",
+    "source_db_host": "<The Enpoint of Your Source Redshift Cluster Without the Port>",
+    "source_db_username": "<Your Source Redshift Username>",
+    "source_db_password": "<Your Source Redshfit Password>",
+    "target_sg_role_arn": "<Your Target Cross Account Role Arn>",
+    "target_redshift_role_arn": "<Your Target Redshift Role Arn>",
+    "target_security_group_id": "<The Security Group of Your Target Redshift Cluster>",
+    "target_db_host": "<The Enpoint of Your Target Redshift Cluster Without the Port>",
+    "target_db_username": "<Your Target Redshift Username>",
+    "target_db_password": "<Your Target Redshift Password>",
+    "s3bucket": "<Your S3 Bucket>",
+    "s3key": "<Your S3 Key>"
+}

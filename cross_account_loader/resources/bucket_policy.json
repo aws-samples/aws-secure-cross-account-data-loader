@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowLoaderAccount",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<Your Target AWS Account ID>:root"
+            },
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::pdss-4a7nzg/*",
+                "arn:aws:s3:::pdss-4a7nzg"
+            ]
+        }
+    ]
+}

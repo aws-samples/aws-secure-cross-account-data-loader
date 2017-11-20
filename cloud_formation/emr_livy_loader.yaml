@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This template creates an EMR cluster to load OpenFDA data into the source Redshift cluster.
+Parameters:
+  keyPairName:
+    Type: String
+    Description: The name of the KeyPair to SSH into the EMR instances.
+Resources:
+  Cluster:
+    Type: AWS::EMR::Cluster
+    Properties: 
+      Applications:
+        - Name: Hadoop
+        - Name: Spark
+        - Name: Zeppelin
+        - Name: Livy
+      Instances: 
+          MasterInstanceGroup: 
+            InstanceCount: 1
+            InstanceType: m3.xlarge
+            Market: ON_DEMAND
+            Name: Master
+          CoreInstanceGroup: 
+            InstanceCount: 2
+            InstanceType: m3.xlarge
+            Market: ON_DEMAND
+            Name: Core
+          TerminationProtected: false
+          Ec2KeyName:
+            Ref: keyPairName
+      JobFlowRole: EMR_EC2_DefaultRole 
+      Name: OpenFDALoader
+      ServiceRole: EMR_DefaultRole 
+      ReleaseLabel: emr-5.9.0
+      VisibleToAllUsers: true
